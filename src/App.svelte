@@ -99,7 +99,7 @@
 <br>
 <p>tussock forming sedge, 1.5-7mm wide light green/yellow-green leaves, up to 1.5m</p>
 
-<input type=text value={q2}>
+<input type=text bind:value={q2}>
 	
 <button id='button2' on:click={check(q2)}>
   Check
