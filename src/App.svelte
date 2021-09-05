@@ -42,7 +42,6 @@
           text = 'false!' 
         }
 			}	else if (i === 2) {
-				console.log(ans)
 				if (ans === 'carex secta') {
 					count+= 1
           text = 'correct!'
@@ -51,7 +50,7 @@
         }
 			} else if (i === 3) {
 				console.log(ans)
-				if (ans === Array(2)[ "d" , "f" ]){
+				if (ch1.checked & ch3.checked){
 					count+= 1 
           text = 'correct!'
         } else {
@@ -111,22 +110,22 @@
 <p>Which of these are trees</p>
 
 <label>
-	<input type=checkbox bind:group={q3} value={'d'}>
+	<input id='ch1' type=checkbox bind:group={q3} value={'d'}>
 	kowhai
 </label>
 
 <label>
-	<input type=checkbox bind:group={q3} value={'e'}>
+	<input id='ch2' type=checkbox bind:group={q3} value={'e'}>
 	mahoe
 </label>
 
 <label>
-	<input type=checkbox bind:group={q3} value={'f'}>
+	<input id='ch3' type=checkbox bind:group={q3} value={'f'}>
 	lancewood
 </label>
 
 <label>
-	<input type=checkbox bind:group={q3} value={'g'}>
+	<input id='ch4' type=checkbox bind:group={q3} value={'g'}>
 	karamu
 </label>
 
