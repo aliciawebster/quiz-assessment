@@ -41,6 +41,20 @@
 		}
 	}
 	
+	function set(l){
+		// shuffle questions
+		var m = questions.length, t, i;
+		// This checks there are still questions to shuffle
+		while (m) {
+			// Picks a remaining element randomly
+			i = Math.floor(Math.random() * m--);
+			// This swaps that with the current element
+			t = questions[m];
+			questions[m] = questions[i];
+			questions[i] = t;
+		}
+		questions.splice(l, 10-l)
+	} 
 	
 </script>
 
