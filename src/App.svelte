@@ -37,11 +37,11 @@
 			p = 'please choose a number between 3 and 30'
 		} else {
 		p = 'Hello ' + n + ' from class ' + g
-		set(l)
+		shuffle(l)
 		}
 	}
 	
-	function set(l){
+	function shuffle(l){
 		// shuffle questions
 		var m = questions.length, t, i;
 		// This checks there are still questions to shuffle
@@ -53,7 +53,8 @@
 			questions[m] = questions[i];
 			questions[i] = t;
 		}
-		questions.splice(l, 10-l)
+		questionSet = questions.slice()
+		questionSet.splice(l, 10-l)
 	} 
 	
 </script>
