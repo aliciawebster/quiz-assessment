@@ -18,7 +18,7 @@
   let finalscore = ''
 	let name = ''
   let group = ''
-	let length = ''
+	let length = 10
 	let questionSet = ''
 	let p = ''
 	let gameStart = false		
@@ -96,10 +96,13 @@
           text = 'false!' 
 					correction[i-1] = 'correct answer was ' + questionSet[i][0]
         } 
-			}
+			} 
 			text += ' current score is ' + count
     	answers[i-1] = text
-			return answers 
+			if (i === 8) {
+				finalscore = 'Your final score is ' + count + '!'
+			}
+			return answers
 		} 
 	}
 
@@ -113,8 +116,8 @@
 
 <input type=text bind:value={name} placeholder='enter name'>
 <input type=text bind:value={group} placeholder='enter tutor group'>
-<input type=number bind:value={length} placeholder='quiz length'>
-
+<!-- <input type=number bind:value={length} placeholder='quiz length'>
+ -->
 <button on:click={start(name, group, length, gameStart)}>
   Go
 </button>
@@ -292,4 +295,6 @@
 <p>{correction[7]}</p>
 
 <br>
+
+<p>{finalscore}</p>
 {/if}
