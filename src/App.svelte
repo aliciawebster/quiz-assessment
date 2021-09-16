@@ -22,10 +22,15 @@
 	let p = ''
 	let gameStart = 'no'		
 	let q = ''
+	let w = ''
 	let a = ''
 	let b = ''
 	let c = ''
 	let d = ''
+	let aa = '1'
+	let bb = '2'
+	let cc = '3'
+	let dd = '4'
 
   
   let questions = [
@@ -70,21 +75,21 @@
 		p = 'Hello ' + n + ' from class ' + g
 		gameStart = 'yes'
 		shuffle(le)
+		multi()
 		}
 		return p
 	}
 	
 	function shuffle(l){
-		// shuffle questions
-		var m = questions.length, t, i;
+		var m = questions.length, t, j;
 		// This checks there are still questions to shuffle
 		while (m) {
 			// Picks a remaining element randomly
-			i = Math.floor(Math.random() * m--);
+			j = Math.floor(Math.random() * m--);
 			// This swaps that with the current element
 			t = questions[m];
-			questions[m] = questions[i];
-			questions[i] = t;
+			questions[m] = questions[j];
+			questions[j] = t;
 		}
 		questionSet = questions.slice()
 		questionSet.splice(l, 10-l)
@@ -115,32 +120,71 @@
 			i++
 			text += ' current score is ' + count
     	answers[i-1] = text
+			w = ''
 			q = ''
 			if (i === length) {
-				finalscore = 'Your final score is ' + count + '!'
+				console.log(i)
+				finalscore = 'Your final score is ' + count + ' out of ' + length
 				gameStart = 'over'
-				console.log(gameStart)
 			}
+			multi()
 			return answers
-		} 
+		}
 	}
 
 	function multi() {
+		aa = '1'
+		bb = '2'
+		cc = '3'
+		dd = '4'
+		var m = questions.length, t, j;
+	  while (m) {
+    j = Math.floor(Math.random() * m--);
+    t = questions[m];
+    questions[m] = questions[j];
+    questions[j] = t;
+  }
 		let num = Math.floor(Math.random() * 5);
 		if (num === 1) {
 			a = questionSet[i][0]
-			b = questions[Math.floor(Math.random() * 10)][0]
-			
-
+			aa = 'true'
+			b = questions[1][0]
+			c = questions[2][0]
+			d = questions[3][0]
+			if (a === b || a === c || a === d) {
+				multi()
+				return
+			}
 		} else if (num === 2) {
 			b = questionSet[i][0]
-			
+			bb = 'true'
+			a = questions[1][0]
+			c = questions[2][0]
+			d = questions[3][0]
+			if (b === a || b === c || b === d) {
+				multi()
+				return
+			}
 		} else if (num === 3) {
 			c = questionSet[i][0]
-			
+			cc = 'true'
+			a = questions[1][0]
+			b = questions[2][0]
+			d = questions[3][0]
+			if (c === a || c === b || c === d) {
+				multi()
+				return
+			}
 		} else {
 			d = questionSet[i][0]
-
+			dd = 'true'
+			a = questions[1][0]
+			b = questions[2][0]
+			c = questions[3][0]
+			if (d === a || d === b || d === c) {
+				multi()
+				return
+			}
 		}
 	}
 	
@@ -177,23 +221,23 @@
 		<p>{questionSet[i][1]}</p>
 		<label>
 						
-			<input type=radio bind:group={q} value={a}>
-			{questions[2][0]}
+			<input type=radio bind:group={q} value={aa}>
+			{a}
 		</label>
 
 		<label>
-			<input type=radio bind:group={q} value={'b'}>
-			{questions[3][0]}
+			<input type=radio bind:group={q} value={bb}>
+			{b}
 		</label>
 
 		<label>
-			<input type=radio bind:group={q} value={'true'}>
-			{questionSet[i][0]}
+			<input type=radio bind:group={q} value={cc}>
+			{c}
 		</label>
 
 		<label>
-			<input type=radio bind:group={q} value={'c'}>
-			{questions[7][0]}
+			<input type=radio bind:group={q} value={dd}>
+			{d}
 		</label>
 
 		<button on:click={check(q)}>
@@ -206,9 +250,9 @@
 		<br>
 
 		<p>{questionSet[i][1]}</p>
-		<input type=text bind:value={q}>
+		<input type=text bind:value={w}>
 	
-		<button on:click={check(q)}>
+		<button on:click={check(w)}>
 			Check
 		</button>
 
