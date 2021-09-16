@@ -115,10 +115,12 @@
 // 		this checks if the user has entered a number in their answer, if so will return an error message and get them to answer again
 		for (let j = 0; j < ans.length; j++) {
 			let letter = ans.charAt(j)
-			if (isNaN(letter) === false) {
-				error = 'answer cannot include numbers, try again'
-				return
-			}
+      if (letter != ' '){
+        if (isNaN(letter) === false) {
+          error = 'answer cannot include numbers, try again'
+          return
+        }
+      }
 // 			this checks if the answer is under 30 characters, if so it will return an error message and get them to answer again
 			if (ans.length > 30){
 				error = 'answer is too long, keep it under 30 characters'
