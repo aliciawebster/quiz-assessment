@@ -27,10 +27,11 @@
 	let b = ''
 	let c = ''
 	let d = ''
-	let aa = '1'
-	let bb = '2'
-	let cc = '3'
-	let dd = '4'
+	let aa = 'a'
+	let bb = 'b'
+	let cc = 'c'
+	let dd = 'd'
+	let error = ''
 
   
   let questions = [
@@ -72,6 +73,14 @@
 		} else if  (le < 3 || le > 20) {
 			p = 'please choose a number between 3 and 20'
 		} else {
+			for (let j = 0; j < n.length; j++) {
+			let letter = n.charAt(j)
+			if (isNaN(letter) === false) {
+				p = 'name cannot include numbers'
+				name = ''
+				return p
+			}
+		}
 		p = 'Hello ' + n + ' from class ' + g
 		gameStart = 'yes'
 		shuffle(le)
@@ -97,6 +106,18 @@
 	} 
 	
   function check(ans){
+		if (ans === '') {
+			error = 'please answer the question'
+			return
+		} 
+		for (let j = 0; j < ans.length; j++) {
+			let letter = ans.charAt(j)
+			if (isNaN(letter) === false) {
+				error = 'answer cannot include numbers, try again'
+				return
+			}
+		}
+		error = ''
 		let text = '' 
 		while (i < length) {
       if (i % 2 == 0) {
@@ -123,7 +144,6 @@
 			w = ''
 			q = ''
 			if (i === length) {
-				console.log(i)
 				finalscore = 'Your final score is ' + count + ' out of ' + length
 				gameStart = 'over'
 			}
@@ -133,10 +153,10 @@
 	}
 
 	function multi() {
-		aa = '1'
-		bb = '2'
-		cc = '3'
-		dd = '4'
+		aa = 'a'
+		bb = 'b'
+		cc = 'c'
+		dd = 'd'
 		var m = questions.length, t, j;
 	  while (m) {
     j = Math.floor(Math.random() * m--);
@@ -244,6 +264,8 @@
 			Check
 		</button>
 
+		<p>{error}</p>
+
 	{:else}
 		<p>{correction[i-1]}</p>
 		<p>{answers[i-1]}</p>
@@ -255,6 +277,8 @@
 		<button on:click={check(w)}>
 			Check
 		</button>
+
+		<p>{error}</p>
 
 	{/if}
 
