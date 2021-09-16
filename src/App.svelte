@@ -79,7 +79,16 @@
 				p = 'name cannot include numbers'
 				name = ''
 				return p
+			} else if (n.length > 30) {
+				p = 'name is too long, please enter real name'
+				name = ''
+				return p
 			}
+			}
+		if (g.length != 4) {
+			p = 'tutor group must have 4 characters'
+			group = ''
+			return p
 		}
 		p = 'Hello ' + n + ' from class ' + g
 		gameStart = 'yes'
@@ -114,6 +123,11 @@
 			let letter = ans.charAt(j)
 			if (isNaN(letter) === false) {
 				error = 'answer cannot include numbers, try again'
+				return
+			}
+			if (ans.length > 30){
+				error = 'answer is too long, keep it under 30 characters'
+				w = ''
 				return
 			}
 		}
