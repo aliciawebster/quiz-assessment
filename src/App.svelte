@@ -1,18 +1,8 @@
 <script>
-	let q1 = ''
-  let q2 = ''
-  let q3 = ''
-  let q4 = ''
-  let q5 = ''
-	let q6 = ''
-  let q7 = ''
-  let q8 = ''
-  let q9 = ''
-  let q10 = ''
-	let currentscore = ''
+// 	this section defines variables that to be used later in the code  
   let count = 0
-  let answers = ['', '', '', '', '', '', '', '', '', '']
-	let correction = ['', '', '', '', '', '', '', '', '', '']
+  let answers = ['', '', '', '', '', '', '', '', '', '', '', '']
+	let correction = ['', '', '', '', '', '', '', '', '', '', '', '']
   let i = 0
   let finalscore = ''
 	let name = ''
@@ -32,19 +22,21 @@
 	let cc = 'c'
 	let dd = 'd'
 	let error = ''
-
   
+	// this is the complete library of questions, the new cut and shuffled list is spliced from here, and the other options on the multi-choice questions are drawn from here 
   let questions = [
-  ['kowhai', 'yellow flowers in spring, small leaflets, can grow up to 25m', '../src/assets/images/kowhai.jpg'],
-  ['kahikatea', 'conifer (cone bearing) tree, can grow over 50m', '../src/assets/images/kahikatea.jpg'],
-  ['poroporo', 'fleshy shrub, yellow/orange fruits, purple ruffled flowers, up to 4m', '../src/assets/images/poroporo.jpg'],
-  ['mingimingi', 'divaricating shrub, small oblong leaves, translucent blue berries', '../src/assets/images/mingimingi.jpg'],
-  ['karamu', 'large bushy shrub, red fruits in tight clusters along twigs, grows to 4m', '../src/assets/images/karamu.jpg'],
-  ['lancewood', 'thin straight trunk, lance-like foliage, drooping spiky leaves, up to 15m', '../src/assets/images/lancewood.jpg'],
-  ['akeake', 'bushy shrub/small tree, reddish bark, long thin wavy leaves, greenish white flowers with yellow or red tips, up to 12m', '../src/assets/images/akeake.jpg'],
-  ['cabbage tree', 'long narrow leaves up to 1m, white flowers turn to bluish-white berries, height up to 20m', '../src/assets/images/cabbagetree.jpg'],
-  ['carex secta', 'tussock forming sedge, 1.5-7mm wide light green/yellow-green leaves, up to 1.5m', '../src/assets/images/carexsecta.jpg'],
-  ['mahoe', 'shrub or small tree, greenish flowers in clusters along twigs, purple fruit, up to 15m', '../src/assets/images/mahoe.jpg']
+  ['kowhai', 'yellow flowers in spring, small leaflets, can grow up to 25m'],
+  ['kahikatea', 'conifer (cone bearing) tree, can grow over 50m'],
+  ['poroporo', 'fleshy shrub, yellow/orange fruits, purple ruffled flowers, up to 4m'],
+  ['mingimingi', 'divaricating shrub, small oblong leaves, translucent blue berries'],
+  ['karamu', 'large bushy shrub, red fruits in tight clusters along twigs, grows to 4m'],
+  ['lancewood', 'thin straight trunk, lance-like foliage, drooping spiky leaves, up to 15m'],
+  ['akeake', 'bushy shrub/small tree, reddish bark, long thin wavy leaves, greenish white flowers with yellow or red tips, up to 12m'],
+  ['cabbage tree', 'long narrow leaves up to 1m, white flowers turn to bluish-white berries, height up to 20m'],
+  ['carex secta', 'tussock forming sedge, 1.5-7mm wide light green/yellow-green leaves, up to 1.5m'],
+  ['mahoe', 'shrub/small tree, greenish flowers in clusters along twigs, purple fruit, up to 15m'],
+		['lophomyrtus', 'evergreen shrub, small thick leaves, small single white flowers, red/black berries'],
+		['wineberry', 'Small tree, thin heart shaped toothed leaves pink on underside, small dark red flowers and berries, up to 10m']
   ]
 	
 	function reset() {
@@ -64,14 +56,14 @@
 				p = 'please enter your form class '
 				if  (n === '') {
 					p += 'and name '} 
-				if  (le < 3 || le > 20) {
-					p += 'and a number between 3 and 20' }
+				if  (le < 3 || le > 12) {
+					p += 'and a number between 3 and 12' }
 		} else if  (n === '') {
 			p = 'please enter your name '
-			if  (le < 3 || le > 20) {
-					p += 'and a number between 3 and 20' }
-		} else if  (le < 3 || le > 20) {
-			p = 'please choose a number between 3 and 20'
+			if  (le < 3 || le > 12) {
+					p += 'and a number between 3 and 12' }
+		} else if  (le < 3 || le > 12) {
+			p = 'please choose a number between 3 and 12'
 		} else {
 			for (let j = 0; j < n.length; j++) {
 			let letter = n.charAt(j)
@@ -110,7 +102,7 @@
 			questions[j] = t;
 		}
 		questionSet = questions.slice()
-		questionSet.splice(l, 10-l)
+		questionSet.splice(l, 12-l)
 		return questionSet
 	} 
 	
@@ -229,7 +221,7 @@
 	<p>Identifing Native Plants</p>
 	<br>
 
-	<p>Enter your name and tutor group, and choose a quiz length from three to twenty.</p>
+	<p>Enter your name and tutor group, and choose a quiz length from three to twelve.</p>
 
 	<input type=text bind:value={name} placeholder='enter name'>
 	<input type=text bind:value={group} placeholder='enter tutor group'>
