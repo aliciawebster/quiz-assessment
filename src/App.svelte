@@ -1,18 +1,18 @@
 <script>
-// 	this section defines variables that to be used later in the code  
+// 	this section defines variables that to be used later in the code 
   let count = 0
   let answers = ['', '', '', '', '', '', '', '', '', '', '', '']
 	let correction = ['', '', '', '', '', '', '', '', '', '', '', '']
   let i = 0
-  let finalscore = ''
+  let finalScore = ''
 	let name = ''
   let group = ''
-	let length = ''
+	let length = '' 
 	let questionSet = ''
-	let p = ''
+	let output = ''
 	let gameStart = 'no'		
-	let q = ''
-	let w = ''
+	let q1 = ''
+	let q2 = ''
 	let a = ''
 	let b = ''
 	let c = ''
@@ -43,55 +43,58 @@
 	function start(n, g, le){
 // 		input validation: checking that there is a value entered in the name, tutor group and length fields, and checking the size of the number
 		if (g === '') {
-				p = 'please enter your form class '
+				output = 'please enter your form class '
 				if  (n === '') {
-					p += 'and name '} 
+					output += 'and name '} 
 				if  (le < 3 || le > 12) {
-					p += 'and a number between 3 and 12' }
+					output += 'and a number between 3 and 12' }
+          length = ''
 		} else if  (n === '') {
-			p = 'please enter your name '
+			output = 'please enter your name '
 			if  (le < 3 || le > 12) {
-					p += 'and a number between 3 and 12' }
+					output += 'and a number between 3 and 12' 
+          length = ''}
 		} else if  (le < 3 || le > 12) {
-			p = 'please choose a number between 3 and 12'
+			output = 'please choose a number between 3 and 12'
+      length = ''
 		} else {
 // 			checking that the user hasn't entered a number in their name 
 			for (let j = 0; j < n.length; j++) {
 			let letter = n.charAt(j)
 			if (isNaN(letter) === false) {
-				p = 'name cannot include numbers'
+				output = 'name cannot include numbers'
 				name = ''
-				return p
+				return output
 // 				checking that the name is't over thirty characters, otherwise it is too long to be their actual name 
 			} else if (n.length > 30) {
-				p = 'name is too long, please enter real name'
+				output = 'name is too long, please enter real name'
 				name = ''
-				return p
+				return output
 			}
 			}
 // 			tutor groups at rrgs are 4 characters, so this checks the tutor group is 4 letters long
 		if (g.length != 4) {
-			p = 'tutor group must have 4 characters'
+			output = 'tutor group must have 4 characters'
 			group = ''
-			return p
+			return output
 		}
 // 			if this passes all of the validation checks, it welcomes you to the quiz and calls other functions to start the quiz 
-		p = 'Hello ' + n + ' from class ' + g
+		output = 'Hello ' + n + ' from class ' + g
 		gameStart = 'yes'
 		shuffle(le)
 		multi()
 		}
-		return p
+		return output
 	}
 	
-// 	this function shuffles the questions list, duplicates that and then cuts this to length 
+// 	this function shuffles the questions list, duplicates it and then cuts it to length 
 	function shuffle(l){
 		var m = questions.length, t, j;
 // 		This checks there are still questions to shuffle
 		while (m) {
 // 			Picks a remaining element randomly
 			j = Math.floor(Math.random() * m--);
-// 			This swaps that with the current element
+// 			This swaps that with the current element, shuffling it
 			t = questions[m];
 			questions[m] = questions[j];
 			questions[j] = t;
@@ -119,7 +122,7 @@
 // 			this checks if the answer is under 30 characters, if so it will return an error message and get them to answer again
 			if (ans.length > 30){
 				error = 'answer is too long, keep it under 30 characters'
-				w = ''
+				q2 = ''
 				return
 			}
 		}
@@ -139,7 +142,9 @@
         }
 // 				if i isn't a multiple of 2, then it is text input, and will check accordingly
 			}	else if (i % 2 != 0) {
-				if (ans === questionSet[i][0]) {
+				let lowerAns = ans.toLowerCase()
+// 				this converts their answer to lower case, which aloows them to use capital letters and still get it correct
+				if (lowerAns === questionSet[i][0]) {
 					count+= 1
           text = 'correct!'
         } else {
@@ -151,11 +156,11 @@
 			i++
 			text += ' current score is ' + count
     	answers[i-1] = text
-			w = ''
-			q = ''
+			q1 = ''
+      q2 = ''
 // 			if at the last question, it will put your final score in words, and set the gameStart variable to over, so the html will move to next 'page'
 			if (i === length) {
-				finalscore = 'Your final score is ' + count + ' out of ' + length
+				finalScore = 'Your final score is ' + count + ' out of ' + length
 				gameStart = 'over'
 			}
 // 			this calls the function that will shuffle the options for the multi-choice again, to get different options each time (multi)
@@ -232,7 +237,7 @@
  	  group = ''
 		length = ''
 		gameStart = 'no'
-		p = ''
+		output = ''
 		answers = ['', '', '', '', '', '', '', '', '', '']
 		correction = ['', '', '', '', '', '', '', '', '', '']
   	}
@@ -257,17 +262,20 @@
 		Go
 	</button>
 <!-- welcome message for user -->
-	<p>{p}</p>
+	<p>{output}</p>
 
 <!-- if the quiz has started, it will let the user know this, and provide instructions and a question -->
 {:else if gameStart == 'yes'}
 	<h3>Quiz has started</h3>
+	{#if i === 0}
+	<p>{output}</p>
+	{/if}
 	<p>Choose the plant that best fits the description</p>
 	<br>
 
 <!-- determines if the question is a multi-choice or a text input using i (variable created to keep track of question number) -->
 	{#if i % 2 == 0}
-<!-- if you got the last question wrong, this will say the correct one, and update you on your total points, unless you are at the first question, where there is then nothing to display from other questions. -->
+<!-- if you got the last question wrong, this will say the correct answer, and update you on your total points, unless you are at the first question, where there is then nothing to display from other questions. -->
 		{#if i != 0}
 			<p>{correction[i-1]}</p>
 			<p>{answers[i-1]}</p>
@@ -278,26 +286,26 @@
 		<p>{questionSet[i][1]}</p>
 		<label>
 						
-			<input type=radio bind:group={q} value={aa}>
+			<input type=radio bind:group={q1} value={aa}>
 			{a}
 		</label>
 
 		<label>
-			<input type=radio bind:group={q} value={bb}>
+			<input type=radio bind:group={q1} value={bb}>
 			{b}
 		</label>
 
 		<label>
-			<input type=radio bind:group={q} value={cc}>
+			<input type=radio bind:group={q1} value={cc}>
 			{c}
 		</label>
 
 		<label>
-			<input type=radio bind:group={q} value={dd}>
+			<input type=radio bind:group={q1} value={dd}>
 			{d}
 		</label>
 
-		<button on:click={check(q)}>
+		<button on:click={check(q1)}>
 			Check
 		</button>
 
@@ -312,9 +320,9 @@
 
 <!-- this is the formatting for the text input variable -->
 		<p>{questionSet[i][1]}</p>
-		<input type=text bind:value={w}>
+		<input type=text bind:value={q2}>
 	
-		<button on:click={check(w)}>
+		<button on:click={check(q2)}>
 			Check
 		</button>
 
@@ -327,10 +335,9 @@
 {:else if gameStart === 'over'}
 	<h3>Quiz Completed</h3>
 	<p>{correction[i-1]}</p>
-	<p>{finalscore}</p>
+	<p>{finalScore}</p>
 
 	<button id='reset' on:click={reset}>
 		Reset
 	</button>
 {/if}
-
